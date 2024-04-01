@@ -1,0 +1,40 @@
+---
+title: Backing up Docker named volumes
+date: 2024-04-01 18:00:00 +0000
+categories: [Homelab]
+tags: [docker,backup]     # TAG names should always be lowercase
+---
+
+## Stopping the Docker Service/Containers
+To stop the Docker service on Ubuntu 22.04:  
+`systemctl stop docker`
+
+To stop containers:  
+`docker stop <container name>`
+
+To stop all containers:  
+`docker stop $(docker ps -a -q)`
+
+## Source Machine
+
+1. `sudo su` to gain root access.
+2. `cd /etc/var/lib/docker`
+3. `rsync -av --rsync-path="sudo rsync" volumes/ 192.168.0.10:/home/chunaki7`
+
+
+> Before you can use `--rsync-path="sudo rsync"`, you need to set the permissions on the **destination** machine. [^1]
+>
+> 1. Find out the path to `rsync`: `which rsync`
+> 2. Edit the `/etc/sudoers` file: `sudo visudo`
+> 3. Add the line `<username> ALL=NOPASSWD:<path to rsync>`, where *username* is the login name of the user that rsync will use to log on. That user must be able to use `sudo`
+{: .prompt-info }
+
+## Target Machine
+
+1. `sudo su` 
+2. `cd /var/lib/docker`
+3. `cp -r /home/chunaki7/volumes/* volumes/`
+
+
+## References
+[^1]: [Rsync with Root Permissions](https://superuser.com/questions/270911/run-rsync-with-root-permission-on-remote-machine)
