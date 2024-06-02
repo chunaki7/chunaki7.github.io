@@ -116,6 +116,12 @@ Select **Enroll MOK, Continue, Yes, (password), Reboot.**
 sudo apt install linux-generic-hwe-22.04
 ```
 
+#### Holding the Kernel version on Ubuntu
+```
+sudo apt-mark hold linux-generic-hwe-22.04
+sudo apt-mark unhold linux-generic-hwe-22.04
+```
+
 ### DKMS Setup
 1. Update your system and install required packages:
 ```
@@ -168,13 +174,6 @@ You might also be prompted to do the MOK Configuration when rebooting. Repeat as
 2. Set Display to none
 3. Add PCI-E device. Select the VF and not the iGPU. Will have a device ID of 0000:00:02:*01*
 4. Set it as the Primary GPU.
-
-
-#### Holding the Kernel version on Ubuntu
-```
-sudo apt-mark hold linux-generic-hwe-22.04
-sudo apt-mark unhold linux-generic-hwe-22.04
-```
 
 ## Setting up Plex for Hardware Transcoding [^3]
 I'm using Plex on docker, so will need to bind `/dev/dri` to the container.
