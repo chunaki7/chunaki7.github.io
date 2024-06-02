@@ -170,6 +170,12 @@ You might also be prompted to do the MOK Configuration when rebooting. Repeat as
 4. Set it as the Primary GPU.
 
 
+#### Holding the Kernel version on Ubuntu
+```
+sudo apt-mark hold linux-generic-hwe-22.04
+sudo apt-mark unhold linux-generic-hwe-22.04
+```
+
 ## Setting up Plex for Hardware Transcoding [^3]
 I'm using Plex on docker, so will need to bind `/dev/dri` to the container.
 In my Ansible Playbook, I include the below in the task:
@@ -178,7 +184,6 @@ In my Ansible Playbook, I include the below in the task:
       - /dev/dri:/dev/dri
 ```
 You can verify that it's using hardware transcoding in the Dashboard. When hardware acceleration is being used, you should see (hw) next to the Video format as shown above. 
-
 
 ## References
 [^1]: [Upinel - PVE-Intel-vGPU](https://github.com/Upinel/PVE-Intel-vGPU)
