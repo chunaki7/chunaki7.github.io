@@ -2,7 +2,7 @@
 title: Backing up Docker named volumes
 date: 2024-04-01 18:00:00 +0000
 categories: [Homelab]
-tags: [docker,backup]     # TAG names should always be lowercase
+tags: [docker,backup]
 ---
 
 ## Stopping the Docker Service/Containers
@@ -18,8 +18,8 @@ To stop all containers:
 ## Source Machine
 
 1. `sudo su` to gain root access.
-2. `cd /etc/var/lib/docker`
-3. `rsync -av --rsync-path="sudo rsync" volumes/ 192.168.0.10:/home/chunaki7`
+2. `cd /var/lib/docker`
+3. `rsync -av --rsync-path="sudo rsync" volumes/ chunaki@192.168.0.22:/home/chunaki/volumes/`
 
 
 > Before you can use `--rsync-path="sudo rsync"`, you need to set the permissions on the **destination** machine. [^1]
